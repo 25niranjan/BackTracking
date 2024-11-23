@@ -1,0 +1,66 @@
+class Solution {
+    int ans=0;
+    public int totalNQueens(int n) {
+        char [][]board=new char[n][n];
+place(board,0);
+return ans;
+    }
+    public void place(char [][]board,int col){
+        if(col==board.length){
+            ans++;
+            return;
+        }
+        for(int row=0;row<board.length;row++){
+            if(isSafe(board,row,col)){
+                board[row][col]='Q';
+                place(board,col+1);
+                board[row][col]='.';
+            }
+        }
+    }
+    public boolean isSafe(char [][]board,int row,int col){
+        //check row;
+        for(int i=0;i<row;i++){
+            if(board[i][col]=='Q'){
+                return false;
+            }
+        }
+        //col
+        for(int i=0;i<col;i++){
+            if(board[row][i]=='Q'){
+                return false;
+            }
+        }
+        //check diagonal left
+        int r=row;
+        for(int c=col;c>=0&& r>=0;c--,r--){
+            if(board[r][c]=='Q'){
+                return false;
+            }
+        }
+        //diagonal right
+        r=row;
+        for(int c=col;c<board.length&& r>=0;c++,r--){
+            if(board[r][c]=='Q'){
+                return false;
+            }
+        }
+        //lower right
+        r=row;
+        for(int c=col;c>=0 && r<board[0].length;c--,r++){
+            if(board[r][c]=='Q'){
+                return false;
+            } 
+        }
+        //lower left
+        r=row;
+        for(int c=col;c<board.length&& r<board[0].length;c++,r++){
+            if(board[r][c]=='Q'){
+                return false;
+            }
+
+        }
+        return true;
+    }
+   
+    }
